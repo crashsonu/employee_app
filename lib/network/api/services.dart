@@ -50,20 +50,20 @@ class ApiService {
   }
 
   /// Api service to create new employee.
-  Future<EmployeeModel?> createEmployee(EmployeeModel employee) async {
+  Future<bool?> createEmployee(EmployeeModel employee) async {
     try {
       final response = await _dio.post(
         AppEndpoints.createEmployee,
         data: employee.toJson(),
       );
 
-      if (response.data != null) {
-        return EmployeeModel.fromJson(response.data);
+      if (response.data['status'] == 'success') {
+        return true;
       }
     } catch (error) {
       rethrow;
     }
-    return null;
+    return false;
   }
 
   /// Api service to update employee details.

@@ -1,15 +1,14 @@
 // All Flutter Built-in Imports Here.
 
 // All Custom Imports Here.
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // All Native Imports Here.
-
-// All Attributes or Constants Here.
-
 import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/network/api/services.dart';
 import 'package:employee_app/views/home/bloc/states.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+// All Attributes or Constants Here.
 
 class EmployeesCubit extends Cubit<EmployeesState> {
   List<EmployeeModel> allEmployees = [];
@@ -42,5 +41,21 @@ class EmployeesCubit extends Cubit<EmployeesState> {
     }).toList();
     isEmployeeSearched = !isEmployeeSearched;
     emit(EmployeeSearchedState(filteredEmp));
+  }
+
+  createEmployee(EmployeeModel employee) async {
+    emit(EmployeeCreatingState());
+    try {
+      final response = await ApiService().createEmployee(employee);
+
+      if (response == true) {
+        emit(EmployeeCreatedState());
+      } else {
+        emit(EmployeeCreatingErrorState('Failed to create employee'));
+      }
+    } catch (er) {
+      emit(EmployeeCreatingErrorState(
+          "Failed to create employee can't post to api try again till submit"));
+    }
   }
 }

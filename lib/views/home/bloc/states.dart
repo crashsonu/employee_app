@@ -26,7 +26,8 @@ class EmployeesError extends EmployeesState {
   EmployeesError(this.message);
 }
 
-class SearchIconClickState extends EmployeesState{}
+///
+class SearchIconClickState extends EmployeesState {}
 
 class EmployeeSearchedState extends EmployeesState {
   final List<EmployeeModel> employees;
@@ -34,3 +35,13 @@ class EmployeeSearchedState extends EmployeesState {
   EmployeeSearchedState(this.employees);
 }
 
+///
+class EmployeeCreatingState extends EmployeesState {}
+
+class EmployeeCreatedState extends EmployeesState {}
+
+class EmployeeCreatingErrorState extends EmployeesState {
+  String err;
+
+  EmployeeCreatingErrorState(this.err);
+}

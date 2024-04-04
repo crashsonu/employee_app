@@ -1,5 +1,4 @@
 // All Flutter Built-in Imports Here.
-
 import 'package:flutter/material.dart';
 
 // All Custom Imports Here.
@@ -8,6 +7,7 @@ import 'package:go_router/go_router.dart';
 // All Native Imports Here.
 import 'package:employee_app/views/home/view.dart';
 import 'package:employee_app/network/router/names.dart';
+import 'package:employee_app/views/create_employee/view.dart';
 import 'package:employee_app/views/employee_details/view.dart';
 
 // All Attributes or Constants Here.
@@ -24,9 +24,17 @@ GoRouter router = GoRouter(
       },
     ),
 
+    GoRoute(
+      name: AppRoute.createEmployee,
+      path: '/create_employee',
+      builder: (context, state) {
+        return const CreateEmployeeView();
+      },
+    ),
+
     /// This is main entry point route.
     GoRoute(
-      name: AppRoute.home,
+      name: AppRoute.empDetails,
       path: '/emp_details',
       builder: (context, state) {
         return const EmployeeDetailsView();

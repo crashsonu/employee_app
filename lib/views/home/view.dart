@@ -1,12 +1,16 @@
 // All Flutter Built-in Imports Here.
+
 import 'package:flutter/material.dart';
 
 // All Custom Imports Here.
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // All Native Imports Here.
 import 'package:employee_app/constants/texts.dart';
 import 'package:employee_app/models/employee.dart';
+import 'package:employee_app/constants/colors.dart';
+import 'package:employee_app/network/router/names.dart';
 import 'package:employee_app/views/home/bloc/cubits.dart';
 import 'package:employee_app/views/home/bloc/states.dart';
 import 'package:employee_app/views/home/widgets/widgets.dart';
@@ -31,15 +35,32 @@ class HomeView extends StatelessWidget {
                 textSize: 17,
               ),
               actions: [
-                if (!employeesCubit.isSearchClicked)
-                  IconButton(
-                      onPressed: () {
-                        BlocProvider.of<EmployeesCubit>(context)
-                            .onSearchClick();
-                      },
-                      icon: const Icon(Icons.search, color: Colors.white))
+                IconButton(
+                    onPressed: () {
+                      if (employeesCubit.isSearchClicked) {
+                        employeesCubit.onSearchClick();
+                        return;
+                      }
+                      BlocProvider.of<EmployeesCubit>(context).onSearchClick();
+                    },
+                    icon: Icon(
+                        employeesCubit.isSearchClicked
+                            ? Icons.search_off
+                            : Icons.search,
+                        color: Colors.white))
               ]),
           body: const HomeViewBodyWidget(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: FilledButton(
+            onPressed: () {
+              employeesCubit.isSearchClicked = false;
+              GoRouter.of(context).pushNamed(AppRoute.createEmployee);
+            },
+            style:
+                FilledButton.styleFrom(backgroundColor: AppColors.primaryColor),
+            child: const AppText(text: 'Create Employee', color: Colors.white),
+          ),
         );
       },
     );
@@ -77,52 +98,53 @@ class _HomeViewBodyWidgetState extends State<HomeViewBodyWidget> {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      } else if (state is EmployeesLoaded ||
-          state is SearchIconClickState ||
-          state is EmployeeSearchedState) {
-        return Column(
-          children: [
-            if (employeesCubit.isSearchClicked == true)
-              SizedBox(
-                width: width * 0.8,
-                child: TextFormField(
-                  controller: searchController,
-                  readOnly: employeesCubit.isEmployeeSearched,
-                  decoration: InputDecoration(
-                      hintText: 'Search name here...',
-                      suffix: employeesCubit.isEmployeeSearched
-                          ? IconButton(
-                              onPressed: () {
-                                employeesCubit.onSearchClick();
-                                searchController.clear();
-                                employeesCubit.isEmployeeSearched = false;
-                              },
-                              icon: const Icon(Icons.close))
-                          : FilledButton(
-                              onPressed: () {
-                                employeesCubit.filterEmployeesByName(
-                                    searchController.text);
-                              },
-                              child: const AppText(
-                                  text: 'Search', color: Colors.white),
-                            )),
-                ),
-              ),
-            if (state is EmployeesLoaded)
-              Expanded(child: buildEmployeesList(state.employees)),
-            if (state is SearchIconClickState)
-              Expanded(child: buildEmployeesList(employeesCubit.allEmployees)),
-            if (state is EmployeeSearchedState)
-              Expanded(child: buildEmployeesList(state.employees)),
-          ],
-        );
       } else if (state is EmployeesError) {
         return const Center(
-          child: Text(
-              'Error: Too many requests error occured by api call please refresh}'),
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+                'Error: Too many requests error occured by api call, please rebuild till u see the employee list. '),
+          ),
         );
       }
-      return const SizedBox();
+      return Column(
+        children: [
+          if (employeesCubit.isSearchClicked == true)
+            SizedBox(
+              width: width * 0.8,
+              child: TextFormField(
+                controller: searchController,
+                readOnly: employeesCubit.isEmployeeSearched,
+                decoration: InputDecoration(
+                    hintText: 'Search name here...',
+                    suffix: employeesCubit.isEmployeeSearched
+                        ? IconButton(
+                            onPressed: () {
+                              employeesCubit.onSearchClick();
+                              searchController.clear();
+                              employeesCubit.isEmployeeSearched = false;
+                            },
+                            icon: const Icon(Icons.close))
+                        : FilledButton(
+                            onPressed: () {
+                              employeesCubit
+                                  .filterEmployeesByName(searchController.text);
+                            },
+                            style: FilledButton.styleFrom(
+                                backgroundColor: AppColors.primaryColor),
+                            child: const AppText(
+                                text: 'Search', color: Colors.white),
+                          )),
+              ),
+            ),
+          if (state is EmployeesLoaded)
+            Expanded(child: buildEmployeesList(state.employees)),
+          if (state is SearchIconClickState || state is EmployeeCreatedState)
+            Expanded(child: buildEmployeesList(employeesCubit.allEmployees)),
+          if (state is EmployeeSearchedState)
+            Expanded(child: buildEmployeesList(state.employees)),
+        ],
+      );
     });
   }
 

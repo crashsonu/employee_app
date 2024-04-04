@@ -7,7 +7,8 @@
 // All Attributes or Constants Here.
 
 class AppRoute {
-  static const String splash = 'splash';
   static const String home = 'home';
-  static const String empDetails = 'emp_details';
+  static const String splash = 'splash';
+  static const String empDetails = 'employee_details';
+  static const String createEmployee = 'create_employee';
 }

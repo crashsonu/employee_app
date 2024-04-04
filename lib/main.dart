@@ -1,4 +1,5 @@
 // All Flutter Built-in Imports Here.
+import 'package:employee_app/network/router/routes.dart';
 import 'package:employee_app/views/home/bloc/cubits.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +23,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => EmployeesCubit(),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Employee App',
         theme: appTheme(context),
         debugShowCheckedModeBanner: false,
-        home: const HomeView(),
+        routerConfig: router,
       ),
     );
   }

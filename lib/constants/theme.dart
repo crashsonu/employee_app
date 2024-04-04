@@ -12,6 +12,10 @@ ThemeData appTheme(BuildContext context) {
       primaryColor: AppColors.primaryColor,
       colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
       useMaterial3: true,
+      buttonTheme: const ButtonThemeData(
+        buttonColor: AppColors.primaryColor,
+      ),
+
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primaryColor,
       ));
