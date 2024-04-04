@@ -38,6 +38,7 @@ dependencies:
   go_router: ^13.2.0
   flutter_bloc: ^8.1.5
   dio: ^5.4.2+1
+  alphabet_scroll_view: ^0.3.2
 
 dev_dependencies:
   flutter_test:

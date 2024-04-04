@@ -9,8 +9,8 @@
 class EmployeeModel {
   String id;
   String employeeName;
-  int employeeSalary;
-  int employeeAge;
+  String employeeSalary;
+  String employeeAge;
   String profileImage;
 
   EmployeeModel({
@@ -23,11 +23,11 @@ class EmployeeModel {
 
   factory EmployeeModel.fromJson(Map<String, dynamic> json) {
     return EmployeeModel(
-      id: json['id'] as String,
-      employeeName: json['employee_name'] as String,
-      employeeSalary: int.parse(json['employee_salary']),
-      employeeAge: int.parse(json['employee_age']),
-      profileImage: json['profile_image'] as String,
+      id: json['id'].toString(),
+      employeeName: json['employee_name'],
+      employeeSalary: json['employee_salary'].toString(),
+      employeeAge: json['employee_age'].toString(),
+      profileImage: json['profile_image'],
     );
   }
 

@@ -21,13 +21,15 @@ class ApiService {
         AppEndpoints.employees,
       );
 
-      final List<dynamic> employeesData = response.data;
-      final List<EmployeeModel> employees = employeesData
-          .map((employeeJson) => EmployeeModel.fromJson(employeeJson))
-          .toList();
-
+      final Map<String, dynamic> employeesData = response.data;
+      final List<EmployeeModel> employees =
+          (employeesData['data'] as List<dynamic>)
+              .map<EmployeeModel>((employeeJson) =>
+                  EmployeeModel.fromJson(employeeJson as Map<String, dynamic>))
+              .toList();
       return employees;
     } catch (error) {
+      print(error);
       rethrow;
     }
   }
