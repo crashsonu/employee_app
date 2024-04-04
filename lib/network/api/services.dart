@@ -67,20 +67,20 @@ class ApiService {
   }
 
   /// Api service to update employee details.
-  Future<EmployeeModel?> updateEmployee(EmployeeModel employeeModel) async {
+  Future<bool?> updateEmployee(EmployeeModel employeeModel) async {
     try {
       final response = await _dio.put(
         "${AppEndpoints.updateEmployee}/${employeeModel.id}",
         data: employeeModel.toJson(),
       );
 
-      if (response.data != null) {
-        return EmployeeModel.fromJson(response.data);
+      if (response.data['status'] == 'success') {
+        return true;
       }
     } catch (error) {
       rethrow;
     }
-    return null;
+    return false;
   }
 
   /// Api service to delete a employee.
@@ -89,8 +89,9 @@ class ApiService {
       final response = await _dio.delete(
         "${AppEndpoints.deleteEmployee}/$employeeId",
       );
+      print(response);
 
-      if (response.statusCode == 200) {
+      if (response.data['status'] == 'success') {
         return true;
       }
     } catch (error) {

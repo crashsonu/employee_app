@@ -11,4 +11,5 @@ class AppRoute {
   static const String splash = 'splash';
   static const String empDetails = 'employee_details';
   static const String createEmployee = 'create_employee';
+  static const String updateEmployee = 'update_employee';
 }

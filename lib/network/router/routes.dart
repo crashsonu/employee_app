@@ -1,4 +1,5 @@
 // All Flutter Built-in Imports Here.
+import 'package:employee_app/views/update_employee/view.dart';
 import 'package:flutter/material.dart';
 
 // All Custom Imports Here.
@@ -24,9 +25,10 @@ GoRouter router = GoRouter(
       },
     ),
 
+    /// This is main entry point route.
     GoRoute(
       name: AppRoute.createEmployee,
-      path: '/create_employee',
+      path: '/create',
       builder: (context, state) {
         return const CreateEmployeeView();
       },
@@ -35,10 +37,20 @@ GoRouter router = GoRouter(
     /// This is main entry point route.
     GoRoute(
       name: AppRoute.empDetails,
-      path: '/emp_details',
+      path: '/details',
       builder: (context, state) {
         Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
         return EmployeeDetailsView(employee: extra['employee']);
+      },
+    ),
+
+    /// This is main entry point route.
+    GoRoute(
+      name: AppRoute.updateEmployee,
+      path: '/update',
+      builder: (context, state) {
+        Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+        return UpdateEmployeeView(employee: extra['employee']);
       },
     ),
   ],

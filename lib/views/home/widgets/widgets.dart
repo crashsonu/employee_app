@@ -1,14 +1,16 @@
 // All Flutter Built-in Imports Here.
+import 'package:flutter/material.dart';
+
+// All Custom Imports Here.
+import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// All Native Imports Here.
 import 'package:employee_app/constants/colors.dart';
 import 'package:employee_app/constants/texts.dart';
 import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/network/router/names.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-// All Custom Imports Here.
-
-// All Native Imports Here.
+import 'package:employee_app/views/home/bloc/cubits.dart';
 
 // All Attributes or Constants Here.
 
@@ -26,6 +28,7 @@ class _EmployeeItemState extends State<EmployeeItem> {
 
   @override
   Widget build(BuildContext context) {
+    EmployeesCubit employeesCubit = BlocProvider.of<EmployeesCubit>(context);
     return GestureDetector(
       onTap: () {
         GoRouter.of(context).pushNamed(AppRoute.empDetails,
@@ -56,15 +59,14 @@ class _EmployeeItemState extends State<EmployeeItem> {
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () {
-                // Handle edit action
-                print('Edit pressed');
+                GoRouter.of(context).pushNamed(AppRoute.updateEmployee,
+                    extra: {'employee': widget.employee});
               },
             ),
             IconButton(
               icon: const Icon(Icons.delete),
-              onPressed: () {
-                // Handle delete action
-                print('Delete pressed');
+              onPressed: () async{
+                await employeesCubit.deleteEmployee(widget.employee.id);
               },
             ),
             IconButton(

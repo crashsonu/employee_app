@@ -58,4 +58,37 @@ class EmployeesCubit extends Cubit<EmployeesState> {
           "Failed to create employee can't post to api try again till submit"));
     }
   }
+
+  updateEmployee(EmployeeModel employee) async {
+    emit(EmployeeUpdatingState());
+    try {
+      final response = await ApiService().updateEmployee(employee);
+
+      if (response == true) {
+        emit(EmployeeUpdatedState());
+        await fetchEmployees();
+      } else {
+        emit(EmployeeUpdatingErrorState('Failed to update employee'));
+      }
+    } catch (error) {
+      emit(EmployeeUpdatingErrorState(
+          "Failed to update employee api side issue: Too many requests restart app"));
+    }
+  }
+
+  deleteEmployee(String employeeId) async {
+    emit(EmployeeDeletingState());
+    try {
+      final response = await ApiService().deleteEmployee(employeeId);
+
+      if (response == true) {
+        emit(EmployeeDeletedState());
+      } else {
+        emit(EmployeeDeletingErrorState('Failed to delete employee'));
+      }
+    } catch (error) {
+      emit(EmployeeDeletingErrorState(
+          "Failed to delete employee api side issue: Too many requests restart app"));
+    }
+  }
 }

@@ -45,3 +45,25 @@ class EmployeeCreatingErrorState extends EmployeesState {
 
   EmployeeCreatingErrorState(this.err);
 }
+
+///
+class EmployeeUpdatingState extends EmployeesState {}
+
+class EmployeeUpdatedState extends EmployeesState {}
+
+class EmployeeUpdatingErrorState extends EmployeesState {
+  final String err;
+
+  EmployeeUpdatingErrorState(this.err);
+}
+
+///
+class EmployeeDeletingState extends EmployeesState {}
+
+class EmployeeDeletedState extends EmployeesState {}
+
+class EmployeeDeletingErrorState extends EmployeesState {
+  final String err;
+
+  EmployeeDeletingErrorState(this.err);
+}

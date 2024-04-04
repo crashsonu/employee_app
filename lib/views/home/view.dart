@@ -1,5 +1,6 @@
 // All Flutter Built-in Imports Here.
 
+import 'package:employee_app/utils/helpers.dart';
 import 'package:flutter/material.dart';
 
 // All Custom Imports Here.
@@ -92,9 +93,15 @@ class _HomeViewBodyWidgetState extends State<HomeViewBodyWidget> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     EmployeesCubit employeesCubit = BlocProvider.of<EmployeesCubit>(context);
-    return BlocBuilder<EmployeesCubit, EmployeesState>(
-        builder: (context, state) {
-      if (state is EmployeesLoading) {
+    return BlocConsumer<EmployeesCubit, EmployeesState>(
+        listener: (context, state) {
+      if (state is EmployeeDeletingErrorState) {
+        showScaffoldMessage(context, state.err, color: Colors.redAccent);
+      } else if (state is EmployeeDeletedState) {
+        showScaffoldMessage(context, 'Employee deleted', color: Colors.green);
+      }
+    }, builder: (context, state) {
+      if (state is EmployeesLoading || state is EmployeeDeletingState) {
         return const Center(
           child: CircularProgressIndicator(),
         );
@@ -139,7 +146,10 @@ class _HomeViewBodyWidgetState extends State<HomeViewBodyWidget> {
             ),
           if (state is EmployeesLoaded)
             Expanded(child: buildEmployeesList(state.employees)),
-          if (state is SearchIconClickState || state is EmployeeCreatedState)
+          if (state is SearchIconClickState ||
+              state is EmployeeCreatedState ||
+              state is EmployeeDeletedState ||
+              state is EmployeeDeletingErrorState)
             Expanded(child: buildEmployeesList(employeesCubit.allEmployees)),
           if (state is EmployeeSearchedState)
             Expanded(child: buildEmployeesList(state.employees)),
