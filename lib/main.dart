@@ -1,4 +1,5 @@
 // All Flutter Built-in Imports Here.
+import 'package:employee_app/views/home/bloc/cubits.dart';
 import 'package:flutter/material.dart';
 
 // All Custom Imports Here.
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 // All Native Imports Here.
 import 'package:employee_app/constants/theme.dart';
 import 'package:employee_app/views/home/view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // All Attributes or Constants Here.
 
@@ -18,11 +20,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Employee App',
-      theme: appTheme(context),
-      debugShowCheckedModeBanner: false,
-      home: const HomeView(),
+    return BlocProvider(
+      create: (context) => EmployeesCubit(),
+      child: MaterialApp(
+        title: 'Employee App',
+        theme: appTheme(context),
+        debugShowCheckedModeBanner: false,
+        home: const HomeView(),
+      ),
     );
   }
 }

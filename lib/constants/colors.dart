@@ -8,5 +8,5 @@ import 'package:flutter/material.dart';
 // All Attributes or Constants Here.
 
 class AppColors {
-  static const Color primaryColor = Colors.black87;
+  static const Color primaryColor = Colors.black;
 }

@@ -29,7 +29,6 @@ class ApiService {
               .toList();
       return employees;
     } catch (error) {
-      print(error);
       rethrow;
     }
   }

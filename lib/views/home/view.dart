@@ -9,6 +9,7 @@ import 'package:employee_app/constants/texts.dart';
 import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/views/home/bloc/cubits.dart';
 import 'package:employee_app/views/home/bloc/states.dart';
+import 'package:employee_app/views/home/widgets/widgets.dart';
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 
 // All Attributes or Constants Here.
@@ -18,17 +19,29 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const AppText(
-          text: 'Employees',
-          color: Colors.white,
-          textSize: 17,
-        ),
-      ),
-      body: BlocProvider(
-          create: (context) => EmployeesCubit(),
-          child: const HomeViewBodyWidget()),
+    EmployeesCubit employeesCubit = BlocProvider.of<EmployeesCubit>(context);
+
+    return BlocBuilder<EmployeesCubit, EmployeesState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+              title: const AppText(
+                text: 'Employees',
+                color: Colors.white,
+                textSize: 17,
+              ),
+              actions: [
+                if (!employeesCubit.isSearchClicked)
+                  IconButton(
+                      onPressed: () {
+                        BlocProvider.of<EmployeesCubit>(context)
+                            .onSearchClick();
+                      },
+                      icon: const Icon(Icons.search, color: Colors.white))
+              ]),
+          body: const HomeViewBodyWidget(),
+        );
+      },
     );
   }
 }
@@ -41,6 +54,9 @@ class HomeViewBodyWidget extends StatefulWidget {
 }
 
 class _HomeViewBodyWidgetState extends State<HomeViewBodyWidget> {
+  TextEditingController searchController = TextEditingController();
+  GlobalKey searchFormKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -53,14 +69,53 @@ class _HomeViewBodyWidgetState extends State<HomeViewBodyWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    EmployeesCubit employeesCubit = BlocProvider.of<EmployeesCubit>(context);
     return BlocBuilder<EmployeesCubit, EmployeesState>(
         builder: (context, state) {
       if (state is EmployeesLoading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
-      } else if (state is EmployeesLoaded) {
-        return buildEmployeesList(state.employees);
+      } else if (state is EmployeesLoaded ||
+          state is SearchIconClickState ||
+          state is EmployeeSearchedState) {
+        return Column(
+          children: [
+            if (employeesCubit.isSearchClicked == true)
+              SizedBox(
+                width: width * 0.8,
+                child: TextFormField(
+                  controller: searchController,
+                  readOnly: employeesCubit.isEmployeeSearched,
+                  decoration: InputDecoration(
+                      hintText: 'Search name here...',
+                      suffix: employeesCubit.isEmployeeSearched
+                          ? IconButton(
+                              onPressed: () {
+                                employeesCubit.onSearchClick();
+                                searchController.clear();
+                                employeesCubit.isEmployeeSearched = false;
+                              },
+                              icon: const Icon(Icons.close))
+                          : FilledButton(
+                              onPressed: () {
+                                employeesCubit.filterEmployeesByName(
+                                    searchController.text);
+                              },
+                              child: const AppText(
+                                  text: 'Search', color: Colors.white),
+                            )),
+                ),
+              ),
+            if (state is EmployeesLoaded)
+              Expanded(child: buildEmployeesList(state.employees)),
+            if (state is SearchIconClickState)
+              Expanded(child: buildEmployeesList(employeesCubit.allEmployees)),
+            if (state is EmployeeSearchedState)
+              Expanded(child: buildEmployeesList(state.employees)),
+          ],
+        );
       } else if (state is EmployeesError) {
         return const Center(
           child: Text(
@@ -76,18 +131,13 @@ class _HomeViewBodyWidgetState extends State<HomeViewBodyWidget> {
     return AlphabetScrollView(
       list: employees.map((e) => AlphaModel(e.employeeName)).toList(),
       alignment: LetterAlignment.right,
-      itemExtent: 50,
+      itemExtent: 70,
       itemBuilder: (context, index, str) {
         final employee = employees[index];
-        return ListTile(
-          leading: const CircleAvatar(
-            child: Icon(Icons.person),
-          ),
-          title: Text(employee.employeeName),
-        );
+        return EmployeeItem(employee: employee);
       },
       selectedTextStyle: const TextStyle(
-          fontSize: 19, fontWeight: FontWeight.bold, color: Colors.red),
+          fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black),
       unselectedTextStyle: const TextStyle(
           fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black),
     );

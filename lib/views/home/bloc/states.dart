@@ -26,3 +26,11 @@ class EmployeesError extends EmployeesState {
   EmployeesError(this.message);
 }
 
+class SearchIconClickState extends EmployeesState{}
+
+class EmployeeSearchedState extends EmployeesState {
+  final List<EmployeeModel> employees;
+
+  EmployeeSearchedState(this.employees);
+}
+
