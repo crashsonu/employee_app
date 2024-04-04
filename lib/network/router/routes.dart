@@ -37,7 +37,8 @@ GoRouter router = GoRouter(
       name: AppRoute.empDetails,
       path: '/emp_details',
       builder: (context, state) {
-        return const EmployeeDetailsView();
+        Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+        return EmployeeDetailsView(employee: extra['employee']);
       },
     ),
   ],

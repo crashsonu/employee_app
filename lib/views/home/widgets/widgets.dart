@@ -2,7 +2,9 @@
 import 'package:employee_app/constants/colors.dart';
 import 'package:employee_app/constants/texts.dart';
 import 'package:employee_app/models/employee.dart';
+import 'package:employee_app/network/router/names.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // All Custom Imports Here.
 
@@ -25,6 +27,10 @@ class _EmployeeItemState extends State<EmployeeItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        GoRouter.of(context).pushNamed(AppRoute.empDetails,
+            extra: {'employee': widget.employee});
+      },
       onLongPress: () {
         setState(() {
           _showIcons = true;
