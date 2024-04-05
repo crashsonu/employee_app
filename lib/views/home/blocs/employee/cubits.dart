@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // All Native Imports Here.
 import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/network/api/services.dart';
-import 'package:employee_app/views/home/bloc/states.dart';
+import 'package:employee_app/views/home/blocs/employee/states.dart';
 
 // All Attributes or Constants Here.
 

@@ -1,6 +1,4 @@
 // All Flutter Built-in Imports Here.
-import 'package:employee_app/views/splash/view.dart';
-import 'package:employee_app/views/update_employee/view.dart';
 import 'package:flutter/material.dart';
 
 // All Custom Imports Here.
@@ -8,7 +6,9 @@ import 'package:go_router/go_router.dart';
 
 // All Native Imports Here.
 import 'package:employee_app/views/home/view.dart';
+import 'package:employee_app/views/splash/view.dart';
 import 'package:employee_app/network/router/names.dart';
+import 'package:employee_app/views/update_employee/view.dart';
 import 'package:employee_app/views/create_employee/view.dart';
 import 'package:employee_app/views/employee_details/view.dart';
 
