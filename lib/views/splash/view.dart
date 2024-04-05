@@ -70,7 +70,7 @@ class _SplashViewState extends State<SplashView>
                       height: 200, child: Image.asset('assets/splash.png')),
                   const SizedBox(height: 20),
                   const AppText(
-                    text: 'My Employee',
+                    text: 'MyEmployee',
                     color: Colors.white,
                     textSize: 30,
                     bold: true,
