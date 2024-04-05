@@ -1,16 +1,34 @@
-# employee_app
+# My Employee App
 
-A new Flutter project.
+This is the where used employee dummy api user can create , update, delete, the employee.
 
-## Getting Started
+## Table of Contents
 
-This project is a starting point for a Flutter application.
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
 
-A few resources to get you started if this is your first Flutter project:
+## Installation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Clone the repository:
+2. Get project dependancies bu running pub get:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+##
+
+- **Project Name**:My Employee App.
+- **Description**: Employee Management.
+- **Installation**: Just clone the project and get the dependancies.
+- **Usage**: In this project a dummy api is used that's why the employee fetching creatinf cause the
+  too many request api side error restart the app to see the desired output.
+- **Features**:
+  1.Create employee.
+  2.Update employee.
+  3.Delete employee.
+  4.View all employees.
+
+```bash
+git clone git@github.com:crashsonu/employee_app.git
+
+
