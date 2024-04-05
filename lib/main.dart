@@ -1,18 +1,19 @@
 // All Flutter Built-in Imports Here.
-import 'package:employee_app/network/router/routes.dart';
-import 'package:employee_app/views/home/bloc/cubits.dart';
 import 'package:flutter/material.dart';
 
 // All Custom Imports Here.
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // All Native Imports Here.
 import 'package:employee_app/constants/theme.dart';
-import 'package:employee_app/views/home/view.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:employee_app/network/router/routes.dart';
+import 'package:employee_app/views/home/bloc/cubits.dart';
 
 // All Attributes or Constants Here.
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 

@@ -110,8 +110,8 @@ class _CreateEmployeeState extends State<CreateEmployeeView> {
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryColor),
-                    child:
-                        const AppText(text: 'Create User', color: Colors.white),
+                    child: const AppText(
+                        text: 'Create Employee', color: Colors.white),
                   ),
                 ],
               ),
