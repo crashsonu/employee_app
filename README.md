@@ -13,7 +13,7 @@ This is the employee management app created using a dummy api. User can create ,
 ## Installation
 
 1. Clone the repository:
-2. Get project dependancies bu running pub get:
+2. Get project dependancies by running pub get:
 
 ##
 
