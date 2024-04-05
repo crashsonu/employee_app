@@ -1,6 +1,6 @@
 # My Employee App
 
-This is the where used employee dummy api user can create , update, delete, the employee.
+This is the employee management app created using a dummy api. User can create , update, delete, the employee.
 
 ## Table of Contents
 
