@@ -10,7 +10,7 @@ import 'package:employee_app/constants/colors.dart';
 import 'package:employee_app/constants/texts.dart';
 import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/network/router/names.dart';
-import 'package:employee_app/views/home/blocs/employee/cubits.dart';
+import 'package:employee_app/views/blocs/employee/cubits.dart';
 
 // All Attributes or Constants Here.
 

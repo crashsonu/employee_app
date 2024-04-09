@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // All Custom Imports Here.
 
 // All Native Imports Here.
-import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/utils/responsive.dart';
 import 'package:employee_app/views/create_employee/mobile/view.dart';
 import 'package:employee_app/views/create_employee/desktop/view.dart';

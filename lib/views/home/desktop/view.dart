@@ -13,8 +13,8 @@ import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/constants/colors.dart';
 import 'package:employee_app/network/router/names.dart';
 import 'package:employee_app/views/home/widgets/widgets.dart';
-import 'package:employee_app/views/home/blocs/employee/cubits.dart';
-import 'package:employee_app/views/home/blocs/employee/states.dart';
+import 'package:employee_app/views/blocs/employee/cubits.dart';
+import 'package:employee_app/views/blocs/employee/states.dart';
 
 // All Attributes or Constants Here.
 
