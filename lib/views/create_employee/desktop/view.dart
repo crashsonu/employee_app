@@ -31,7 +31,7 @@ class _CreateEmployeeState extends State<DesktopCreateEmployeeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+
         title: const AppText(
           text: 'Create Employee',
           color: Colors.white,

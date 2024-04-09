@@ -43,8 +43,9 @@ class _CreateEmployeeState extends State<MobileUpdateEmployeeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const AppText(
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: const Icon(Icons.arrow_back_outlined, color: Colors.white,),),        title: const AppText(
           text: 'Update Employee',
           color: Colors.white,
           textSize: 17,
